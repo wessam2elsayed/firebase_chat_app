@@ -15,7 +15,7 @@ class ForgetWidget extends StatelessWidget {
                  
                  style:const TextStyle(
                   color: AppColors.red,
-                  fontSize: 10,
+                  fontSize: 12,
                   fontWeight: FontWeight.w500
                  ),)),
     );

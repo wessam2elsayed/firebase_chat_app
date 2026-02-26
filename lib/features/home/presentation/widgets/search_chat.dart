@@ -13,7 +13,8 @@ class SearchChat extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Container(
                   height: 50,
-                  width: MediaQuery.of(context).size.width/1.3,
+                  width: 250,
+                  // width: MediaQuery.of(context).size.width/1.2,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
                     color: AppColors.gray,

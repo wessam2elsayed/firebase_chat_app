@@ -15,6 +15,7 @@ class RowTextImage extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      const SizedBox(height: 20,),
                        CircleAvatar(
                   backgroundColor: AppColors.black,
                   radius: 15,
@@ -33,15 +34,15 @@ class RowTextImage extends StatelessWidget {
                 const SizedBox(height: 20,),
                       Text(AppStrings.hello,
                       style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 25,
                         fontWeight: FontWeight.bold
                       ),),
     
-                      const SizedBox(height: 10,),
+                      const SizedBox(height: 30,),
     
                       Text(AppStrings.happy,
                       style: TextStyle(
-                        fontSize: 10,
+                        fontSize: 15,
                         fontWeight: FontWeight.w500
                       ),),
                     ],

@@ -11,24 +11,27 @@ class OnBoardingScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.white,
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 15,),
+            const SizedBox(height: 50,),
             Text(AppStrings.get,
             style: TextStyle(
-              fontSize: 30,
+              fontSize: 40,
               fontWeight: FontWeight.bold
             ),),
-            const SizedBox(height: 15,),
+            const SizedBox(height: 30,),
             Text(AppStrings.help,
             style: TextStyle(
-              fontSize: 12,
+              fontSize: 20,
               fontWeight: FontWeight.w500
             ),),
-            const SizedBox(height: 15,),
-            SizedBox(width: 200,height: 250,
+            const SizedBox(height: 30,),
+            SizedBox(width: 400,height: 300,
             child: Image.asset("assets/Screenshot 2026-02-24 231545.png"),),
+
+            const SizedBox(height: 50,),
             InkWell(
               onTap: (){
                 Navigator.pushNamedAndRemoveUntil(
@@ -41,14 +44,15 @@ class OnBoardingScreen extends StatelessWidget {
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Container(width: 200,height: 30,
+                child: Container(width: double.infinity,height: 50,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(15),
                   color: AppColors.purple
                 ),
                 child: Center(child: Text(AppStrings.start,
                 style: TextStyle(
-                  fontWeight: FontWeight.w400,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                   color: AppColors.white
                 ),)),
                 ),

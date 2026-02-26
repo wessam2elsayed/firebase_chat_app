@@ -20,95 +20,101 @@ class LoginScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Form(
           key: formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 20),
-              RowTextImage(),
-
-              Text(
-                AppStrings.email,
-
-                style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
-              ),
-              TextFormField(
-                controller: context.read<AuthCubit>().emailControllerLogin,
-                decoration: InputDecoration(
-                  fillColor: AppColors.gray,
-                  filled: true,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 20),
+                RowTextImage(),
+                const SizedBox(height: 20),
+            
+                Text(
+                  AppStrings.email,
+            
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                 ),
-              ),
-              const SizedBox(height: 20),
-
-              Text(
-                AppStrings.password,
-
-                style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
-              ),
-              TextFormField(
-                controller: context.read<AuthCubit>().passwordControllerLogin,
-                obscureText: isPassword,
-                decoration: InputDecoration(
-                  fillColor: AppColors.gray,
-                  filled: true,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                 ForgetWidget(txt: AppStrings.dont,
-                  onpressed: () { 
-                     Navigator.pushNamed(context,AppRoutes.signUpScreen);
-                 },
-                  ),
-                 ForgetWidget(txt: AppStrings.forget, onpressed: () {  },),
-              ],),
-
-              const SizedBox(height: 50),
-              BlocConsumer<AuthCubit, AuthState>(
-                listener: (context, state) {
-                  if(state is LoginSuccess){
-                    print("login success");
-                    Navigator.pushReplacementNamed(
-                      context, 
-                      AppRoutes.homeScreen);
-                  }else if(state is LoginFailure){
-                    print(state.erroeMessage);
-                  }
-                },
-                builder: (context, state) {
-                  return SizedBox(
-                     width: double.infinity,
-                     height: 30,
-                     child: ElevatedButton(
-                       style: ElevatedButton.styleFrom(
-                         backgroundColor: AppColors.purple
-                        ),
-                       onPressed: (){
-                        context.read<AuthCubit>().login();
-                       }, 
-                       child: state is LoginLoading? 
-                       Center(child: CircularProgressIndicator(),)
-                       :Text(AppStrings.login,
-                       style: TextStyle(
-                          color: AppColors.white,
-                          fontWeight: FontWeight.w400
-                        ),
-                      ) 
+                const SizedBox(height: 15),
+                TextFormField(
+                  controller: context.read<AuthCubit>().emailControllerLogin,
+                  decoration: InputDecoration(
+                    fillColor: AppColors.gray,
+                    filled: true,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
                     ),
-        
-                  );
-                },
-              ),
-            ],
+                  ),
+                ),
+                const SizedBox(height: 40),
+            
+                Text(
+                  AppStrings.password,
+            
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                ),
+                const SizedBox(height: 15),
+                TextFormField(
+                  controller: context.read<AuthCubit>().passwordControllerLogin,
+                  obscureText: isPassword,
+                  decoration: InputDecoration(
+                    fillColor: AppColors.gray,
+                    filled: true,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                ),
+            
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                   ForgetWidget(txt: AppStrings.dont,
+                    onpressed: () { 
+                       Navigator.pushNamed(context,AppRoutes.signUpScreen);
+                   },
+                    ),
+                   ForgetWidget(txt: AppStrings.forget, onpressed: () {  },),
+                ],),
+            
+                const SizedBox(height: 80),
+                BlocConsumer<AuthCubit, AuthState>(
+                  listener: (context, state) {
+                    if(state is LoginSuccess){
+                      print("login success");
+                      Navigator.pushReplacementNamed(
+                        context, 
+                        AppRoutes.homeScreen);
+                    }else if(state is LoginFailure){
+                      print(state.erroeMessage);
+                    }
+                  },
+                  builder: (context, state) {
+                    return SizedBox(
+                       width: double.infinity,
+                       height: 50,
+                       child: ElevatedButton(
+                         style: ElevatedButton.styleFrom(
+                           backgroundColor: AppColors.purple
+                          ),
+                         onPressed: (){
+                          context.read<AuthCubit>().login();
+                         }, 
+                         child: state is LoginLoading? 
+                         Center(child: CircularProgressIndicator(),)
+                         :Text(AppStrings.login,
+                         style: TextStyle(
+                          fontSize: 20,
+                            color: AppColors.white,
+                            fontWeight: FontWeight.bold
+                          ),
+                        ) 
+                      ),
+                    
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
