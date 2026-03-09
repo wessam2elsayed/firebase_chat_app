@@ -77,7 +77,7 @@ class HomeCubit extends Cubit<HomeState> {
     
     } catch(e){
       if(!isClosed){
-        debugPrint(errorPropertyTextConfiguration.toString());
+        debugPrint(e.toString());
         emit(GetChatFailure(errorMessage: e.toString()));
       }
       
