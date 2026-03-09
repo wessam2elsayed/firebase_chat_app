@@ -10,9 +10,9 @@ class MessageModel {
 
   factory MessageModel.fromJson(Map<String , dynamic> json){
     return MessageModel(
-      senderId: json["senderId"],
-      text: json["message"],
-      time: json["time"]
+      senderId: json["senderId"]??"",
+      text: json["message"]??"",
+      time: json["time"]??""
     );
   }  
 }

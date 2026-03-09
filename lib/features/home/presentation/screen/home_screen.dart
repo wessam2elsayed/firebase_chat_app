@@ -11,6 +11,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return BlocProvider(
       create: (context) => HomeCubit()..getUserChats(),
       child: Scaffold(
@@ -43,23 +44,31 @@ class HomeScreen extends StatelessWidget {
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
+
+                        final bool hasMessage = chats[index].message.isNotEmpty;
+                        final lastMessage=hasMessage
+                        ?chats[index].message.last.text
+                        :"";
+
                         final chat=chats[index];
+                        
                         return ChatItem(
-                          chatItemModel: ChatItemModel(
-                            name: chat.users!.first,
-                            image: "assets/unknown_person.jpg",
-                            message: chat.message,
-                            users: chat.users, 
-                            id: '',
+                          chatItemModel: chat
+                          // ChatItemModel(
+                          //   name: chat.users!.first,
+                          //   image: "assets/unknown_person.jpg",
+                          //   message: chat.message,
+                          //   users: chat.users, 
+                            // id: '',
                             // time: "10:00 Am",
                             // unreadCount: index.toString()
-                          ),
+                          // ),
                         );
                       },
                       separatorBuilder: (context, index) {
                         return SizedBox(height: 10);
                       },
-                      itemCount: 10,
+                      itemCount: chats.length,
                     );
                     }else{
                       return SizedBox.shrink();

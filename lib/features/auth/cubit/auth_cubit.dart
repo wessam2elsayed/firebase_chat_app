@@ -39,6 +39,7 @@ class AuthCubit extends Cubit<AuthState> {
         final user=instance.currentUser!.uid;
         //3 add user to firebase
         await FirebaseFirestore.instance.collection("user").doc(user).set({
+          "id": user,
           "name": nameController.text,
           "email": emailController.text
         });

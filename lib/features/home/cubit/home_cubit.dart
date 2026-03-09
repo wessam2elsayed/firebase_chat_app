@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_chat_app/features/home/data/model/chat_item_model.dart';
 import 'package:firebase_chat_app/features/home/data/model/user_model.dart';
+import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 
 part 'home_state.dart';
@@ -37,25 +38,30 @@ class HomeCubit extends Cubit<HomeState> {
         final otherUserDoc=await FirebaseFirestore.instance
           .collection("user")
           .doc(otherUserId)
-          .get();  
-        final otherUser = UserModel.fromJson(otherUserDoc.data()??{});
+          .get()
+          .then((value){
+            return UserModel.fromJson(
+              value.data()??{},
+              );
+          });  
+        // final otherUser = UserModel.fromJson(otherUserDoc.data()??{});
 
-        return ChatItemModel.fromjson(data , otherUser , otherUserId);
+        return ChatItemModel.fromjson(data , otherUserDoc );
 
         }).toList();
         chats= await Future.wait(docs);
-        chats.sort(
-          (a,b){
-            DateTime timeA= a.message.isNotEmpty
-            ?  (a.message.last.time as DateTime)
-            :DateTime(2000);
+        // chats.sort(
+        //   (a,b){
+        //     DateTime timeA= a.message.isNotEmpty
+        //     ?  (a.message.last.time as DateTime)
+        //     :DateTime(2000);
 
-            DateTime timeB = b.message.isNotEmpty
-            ?(b.message.last.time as DateTime)
-            :DateTime(2000);
+        //     DateTime timeB = b.message.isNotEmpty
+        //     ?(b.message.last.time as DateTime)
+        //     :DateTime(2000);
 
-            return timeB.compareTo(timeA);
-          });
+        //     return timeB.compareTo(timeA);
+        //   });
 
           emit(GetChatSuccess(chats: chats));
       });
@@ -63,10 +69,23 @@ class HomeCubit extends Cubit<HomeState> {
 
     }
     on FirebaseAuthException catch(e){
-      emit(GetChatFailure(errorMessage: e.message.toString()));
+      if(!isClosed){
+        debugPrint(e.message.toString());
+        emit(GetChatFailure(errorMessage: e.message.toString()));
+      }
+      
     
     } catch(e){
-      emit(GetChatFailure(errorMessage: e.toString()));
+      if(!isClosed){
+        debugPrint(errorPropertyTextConfiguration.toString());
+        emit(GetChatFailure(errorMessage: e.toString()));
+      }
+      
     }
+  }
+  @override
+  Future<void> close() {
+    streamSubscription?.cancel();
+    return super.close();
   }
 }

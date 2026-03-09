@@ -9,43 +9,50 @@ class ChatItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
-            padding: EdgeInsets.all(10),
-            width: MediaQuery.of(context).size.width,
-            height: 80,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              border: Border.all(color: AppColors.purple,
-              width: 2)
-            ),
-            child: ListTile(
-              leading: CircleAvatar(
-                radius: 30,
-                backgroundImage: AssetImage(
-                  chatItemModel.image??
-                  "assets/unknown_person.jpg"),
+    return  InkWell(
+      onTap: (){},
+      child: Container(
+              padding: EdgeInsets.all(10),
+              width: MediaQuery.of(context).size.width,
+              height: 80,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                border: Border.all(color: AppColors.purple,
+                width: 2)
               ),
-              title: Text(chatItemModel.name.toString()),
-              subtitle: Text(chatItemModel.message.last.text.toString(),
-              overflow: TextOverflow.ellipsis,),
-              trailing: Column(
-                children: [
-                  Text(chatItemModel.message.last.text??"10:00",
-                  style: TextStyle(
-                    fontSize: 12
-                  ),),
-                  const SizedBox(height: 10,),
-                  // CircleAvatar(
-                  //   radius: 10,
-                  //   backgroundColor: AppColors.purple,
-                  //   child: Text(chatItemModel.unreadCount??"1",
-                  //   style: TextStyle(
-                  //     color: AppColors.white
-                  //   ),),
-                  // )
-                ],
+              child: ListTile(
+                leading: CircleAvatar(
+                  radius: 30,
+                  backgroundImage: AssetImage(
+                    chatItemModel.image??
+                    "assets/unknown_person.jpg"),
+                ),
+                title: Text(chatItemModel.name.toString()),
+                subtitle: Text(chatItemModel.message.isNotEmpty
+                ?chatItemModel.message.last.text??""
+                :"No messages yet",
+                overflow: TextOverflow.ellipsis,),
+                trailing: Column(
+                  children: [
+                    Text(chatItemModel.message.isNotEmpty
+                    ?chatItemModel.message.last.time??""
+                    :"",
+                    style: TextStyle(
+                      fontSize: 12
+                    ),),
+                    const SizedBox(height: 10,),
+                    // CircleAvatar(
+                    //   radius: 10,
+                    //   backgroundColor: AppColors.purple,
+                    //   child: Text(chatItemModel.unreadCount??"1",
+                    //   style: TextStyle(
+                    //     color: AppColors.white
+                    //   ),),
+                    // )
+                  ],
+                ),
               ),
             ),
-          );
+    );
   }
 }
