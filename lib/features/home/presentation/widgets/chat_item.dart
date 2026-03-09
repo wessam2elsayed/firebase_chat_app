@@ -23,9 +23,7 @@ class ChatItem extends StatelessWidget {
               child: ListTile(
                 leading: CircleAvatar(
                   radius: 30,
-                  backgroundImage:  chatItemModel.image!=null&&chatItemModel.image!.isNotEmpty
-                    ?AssetImage(chatItemModel.image!)
-                    :AssetImage("assets/unknown_person.jpg",),),
+                  backgroundImage: AssetImage("assets/unknown_person.jpg")),
                      title: Text(chatItemModel.name.toString()),
                 subtitle: Text(chatItemModel.message.isNotEmpty
                 ?chatItemModel.message.last.text??""
