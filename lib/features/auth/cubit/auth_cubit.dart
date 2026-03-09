@@ -32,8 +32,8 @@ class AuthCubit extends Cubit<AuthState> {
     try{
       //1 create user
       await instance.createUserWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text);
+        email: emailController.text.trim(),
+        password: passwordController.text.trim());
 
         //2 get id
         final user=instance.currentUser!.uid;

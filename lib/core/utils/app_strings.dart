@@ -18,6 +18,8 @@ class AppStrings {
   static String search ="Search chat";
   static String wessam ="Wessam";
   static String hi ="Hi";
+  static String no ="No chats found";
+
 
 
 }

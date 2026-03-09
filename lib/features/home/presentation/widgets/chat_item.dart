@@ -1,6 +1,6 @@
 import 'package:firebase_chat_app/core/theme/app_colors.dart';
 import 'package:firebase_chat_app/core/utils/app_strings.dart';
-import 'package:firebase_chat_app/features/home/model/chat_item_model.dart';
+import 'package:firebase_chat_app/features/home/data/model/chat_item_model.dart';
 import 'package:flutter/material.dart';
 
 class ChatItem extends StatelessWidget {
@@ -25,21 +25,24 @@ class ChatItem extends StatelessWidget {
                   chatItemModel.image??
                   "assets/unknown_person.jpg"),
               ),
-              title: Text(chatItemModel.name?? AppStrings.wessam),
-              subtitle: Text(chatItemModel.message?? AppStrings.hi,
+              title: Text(chatItemModel.name.toString()),
+              subtitle: Text(chatItemModel.message.last.text.toString(),
               overflow: TextOverflow.ellipsis,),
               trailing: Column(
                 children: [
-                  Text(chatItemModel.time??"10:00 Am"),
+                  Text(chatItemModel.message.last.text??"10:00",
+                  style: TextStyle(
+                    fontSize: 12
+                  ),),
                   const SizedBox(height: 10,),
-                  CircleAvatar(
-                    radius: 10,
-                    backgroundColor: AppColors.purple,
-                    child: Text(chatItemModel.unreadCount??"1",
-                    style: TextStyle(
-                      color: AppColors.white
-                    ),),
-                  )
+                  // CircleAvatar(
+                  //   radius: 10,
+                  //   backgroundColor: AppColors.purple,
+                  //   child: Text(chatItemModel.unreadCount??"1",
+                  //   style: TextStyle(
+                  //     color: AppColors.white
+                  //   ),),
+                  // )
                 ],
               ),
             ),
