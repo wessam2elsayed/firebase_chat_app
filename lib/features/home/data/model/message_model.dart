@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 class MessageModel {
   final String? senderId;
   final String? text;
@@ -10,9 +11,11 @@ class MessageModel {
 
   factory MessageModel.fromJson(Map<String , dynamic> json){
     return MessageModel(
-      senderId: json["senderId"]??"",
-      text: json["message"]??"",
-      time: json["time"]??""
+      senderId: json["senderid"]??"",
+      text: json["text"]??"",
+      time: json["time"]!= null
+      ?(json["time"]as Timestamp).toDate().toString()
+      :""
     );
   }  
 }
