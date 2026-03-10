@@ -23,11 +23,8 @@ class ChatItem extends StatelessWidget {
               child: ListTile(
                 leading: CircleAvatar(
                   radius: 30,
-                  backgroundImage: AssetImage(
-                    chatItemModel.image??
-                    "assets/unknown_person.jpg"),
-                ),
-                title: Text(chatItemModel.name.toString()),
+                  backgroundImage: AssetImage("assets/unknown_person.jpg")),
+                     title: Text(chatItemModel.name.toString()),
                 subtitle: Text(chatItemModel.message.isNotEmpty
                 ?chatItemModel.message.last.text??""
                 :"No messages yet",
@@ -41,6 +38,8 @@ class ChatItem extends StatelessWidget {
                       fontSize: 12
                     ),),
                     const SizedBox(height: 10,),
+                
+              
                     // CircleAvatar(
                     //   radius: 10,
                     //   backgroundColor: AppColors.purple,

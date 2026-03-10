@@ -15,7 +15,8 @@ class MessageModel {
       text: json["text"]??"",
       time: json["time"]!= null
       ?(json["time"]as Timestamp).toDate().toString()
-      :""
+      :"",
+
     );
   }  
 }
