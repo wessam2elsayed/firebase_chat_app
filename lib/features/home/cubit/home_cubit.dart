@@ -46,7 +46,7 @@ class HomeCubit extends Cubit<HomeState> {
           });  
         // final otherUser = UserModel.fromJson(otherUserDoc.data()??{});
 
-        return ChatItemModel.fromjson(data , otherUserDoc );
+        return ChatItemModel.fromjson(data , otherUserDoc , doc.id);
 
         }).toList();
         chats= await Future.wait(docs);

@@ -19,4 +19,13 @@ class MessageModel {
 
     );
   }  
+
+  Map<String, dynamic> tojson() {
+    return {
+      'senderid': senderId, // تأكد من مطابقة الاسم لما في الصورة (senderid)
+      'text': text,
+      'time': time,
+    };
+  }
+  
 }

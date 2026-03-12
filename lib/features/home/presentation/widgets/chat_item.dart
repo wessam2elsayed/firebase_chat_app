@@ -1,5 +1,7 @@
+import 'package:firebase_chat_app/core/routes/app_routes.dart';
 import 'package:firebase_chat_app/core/theme/app_colors.dart';
 import 'package:firebase_chat_app/core/utils/app_strings.dart';
+import 'package:firebase_chat_app/features/chat/presentation/screen/chat_screen.dart';
 import 'package:firebase_chat_app/features/home/data/model/chat_item_model.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +12,16 @@ class ChatItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  InkWell(
-      onTap: (){},
+      onTap: (){
+        Navigator.push(
+          context, 
+          MaterialPageRoute(
+            builder: (context)=>ChatScreen(
+              chatId: chatItemModel.id??"", 
+              otherUserName: chatItemModel.name??"", 
+              // otherUserImage: chatItemModel.image??"assets/unknown_person.jpg"
+              )));
+      },
       child: Container(
               padding: EdgeInsets.all(10),
               width: MediaQuery.of(context).size.width,

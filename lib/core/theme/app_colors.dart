@@ -6,4 +6,5 @@ class AppColors {
   static const red = Color.fromARGB(255, 193, 10, 10);
   static const purple = Color.fromARGB(255, 115, 33, 150);
   static const gray = Color.fromARGB(255, 228, 215, 232);
+  static const blue = Color.fromARGB(255, 113, 120, 247);
 }

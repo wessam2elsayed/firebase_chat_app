@@ -19,6 +19,8 @@ class AppStrings {
   static String wessam ="Wessam";
   static String hi ="Hi";
   static String no ="No chats found";
+  static String type ="Type a message";
+  static String error ="Error";
 
 
 
