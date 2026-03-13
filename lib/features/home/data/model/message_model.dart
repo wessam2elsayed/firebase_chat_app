@@ -14,7 +14,9 @@ class MessageModel {
       senderId: json["senderid"]??"",
       text: json["text"]??"",
       time: json["time"]!= null
+      ?json["time"] is Timestamp
       ?(json["time"]as Timestamp).toDate().toString()
+       : json["time"].toString()
       :"",
 
     );
@@ -22,9 +24,9 @@ class MessageModel {
 
   Map<String, dynamic> tojson() {
     return {
-      'senderid': senderId, // تأكد من مطابقة الاسم لما في الصورة (senderid)
+      'senderid': senderId, 
       'text': text,
-      'time': time,
+      'time': Timestamp.now(),
     };
   }
   

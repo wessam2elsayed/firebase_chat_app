@@ -47,7 +47,7 @@ class _ChatScreenState extends State<ChatScreen> {
       .doc(widget.chatId)
       .update(
         {
-          "messages":FieldValue.arrayUnion([newMessage])
+          "messages":FieldValue.arrayUnion([newMessage.tojson()])
         }
       );
 
@@ -80,48 +80,48 @@ class _ChatScreenState extends State<ChatScreen> {
             .collection("chats")
             .doc(widget.chatId)
             .snapshots(),
-
+          
             builder: (context, snapshot) {
-
+          
               if(snapshot.connectionState==ConnectionState.waiting){
                 return Center(child: CircularProgressIndicator(),);
               }
-
+          
               if(snapshot.hasError){
                 return Center(child: Text(AppStrings.error),);
               }
-
+          
               if(snapshot.hasData || snapshot.data!.exists){
-
+          
                 final data = snapshot.data!.data() as   Map<String , dynamic>? ?? {};
                 final rawMessages = data["messages"] as List<dynamic>? ?? [];
                 final messages = rawMessages
                 .map((e)=> MessageModel.fromJson(e as Map<String , dynamic>)
                 ).toList();
               
-
+          
               return ListView.builder(
                       itemCount: messages.length,
                       shrinkWrap: true,
                       itemBuilder: (context,index){
-
+          
                         final msg = messages[index];
                         final isMe = msg.senderId == currentUserId;
-
+          
               return Align(
                 alignment:isMe
                 ? Alignment.centerRight
                 : Alignment.centerLeft,
-
+          
                 child: Container(
                   padding: EdgeInsets.all(10),
                   margin: EdgeInsets.symmetric(vertical: 5,horizontal: 10),
                   decoration: BoxDecoration(
-
+          
                     color: isMe
                     ?AppColors.purple
                     :AppColors.blue,
-
+          
                     borderRadius: isMe
                     ? BorderRadius.only(
                       topLeft: Radius.circular(15),
