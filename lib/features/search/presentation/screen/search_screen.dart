@@ -41,7 +41,10 @@ class _SearchScreenState extends State<SearchScreen> {
                 decoration: InputDecoration(
                   hintText: AppStrings.search,
                   suffixIcon: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      context.read<SearchCubit>().searchUser(
+                    controller.text.trim());
+                    },
                     icon: Icon(Icons.search),
                   ),
                   border: OutlineInputBorder(
