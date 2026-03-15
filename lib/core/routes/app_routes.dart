@@ -1,9 +1,9 @@
 import 'package:firebase_chat_app/features/auth/cubit/auth_cubit.dart';
 import 'package:firebase_chat_app/features/auth/presentation/screen/login_screen.dart';
 import 'package:firebase_chat_app/features/auth/presentation/screen/signup_screen.dart';
-import 'package:firebase_chat_app/features/chat/presentation/screen/chat_screen.dart';
 import 'package:firebase_chat_app/features/home/presentation/screen/home_screen.dart';
 import 'package:firebase_chat_app/features/on_boarding/on_boarding_screen.dart';
+import 'package:firebase_chat_app/features/search/presentation/screen/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,7 +12,7 @@ abstract class AppRoutes {
   static const loginScreen = "/loginScreen";
   static const homeScreen = "/HomeScreen";
   static const signUpScreen = "/SignupScreen";
-  static const chatScreen="/chatScreen";
+  static const searchScreen="/SearchScreen";
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -33,11 +33,9 @@ abstract class AppRoutes {
       case signUpScreen:
         return MaterialPageRoute(builder: (_) => const SignupScreen());
 
-      // case chatScreen:
-      // return  MaterialPageRoute(builder: (_) => const ChatScreen(
-      //   chatId: '', 
-      //   otherUserName: '', 
-      //   otherUserImage: '',));
+        case searchScreen:
+        return MaterialPageRoute(builder: (_) => const SearchScreen());
+
     }
 
     return MaterialPageRoute(

@@ -1,6 +1,6 @@
+import 'package:firebase_chat_app/core/routes/app_routes.dart';
 import 'package:firebase_chat_app/core/theme/app_colors.dart';
 import 'package:firebase_chat_app/core/utils/app_strings.dart';
-import 'package:firebase_chat_app/features/search/presentation/screen/search_screen.dart';
 import 'package:flutter/material.dart';
 
 class SearchChat extends StatelessWidget {
@@ -13,11 +13,12 @@ class SearchChat extends StatelessWidget {
               Expanded(
                 child: InkWell(
                   onTap: (){
-                    Navigator.push(
+                    Navigator.pushNamed(
                       context, 
-                      MaterialPageRoute(
-                        builder: (context)=>SearchScreen()));
+                      AppRoutes.searchScreen,
+                        );
                   },
+
                   child: Container(
                     height: 50,
                     width: 250,
@@ -38,17 +39,6 @@ class SearchChat extends StatelessWidget {
                 ),
               ),
         
-        // متكرر ملوش لازمة 
-              // const SizedBox(width: 10,),
-              // Container(
-              //   width: 50,
-              //   height: 50,
-              //   decoration: BoxDecoration(
-              //     borderRadius: BorderRadius.circular(15),
-              //     color: AppColors.gray
-              //   ),
-              //   child: Icon(Icons.search),
-              // )
             ],
           );
   }
