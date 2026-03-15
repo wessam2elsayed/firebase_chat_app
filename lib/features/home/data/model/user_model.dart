@@ -10,9 +10,9 @@ class UserModel {
     required this.email, 
     this.image});
 
-    factory UserModel.fromJson(Map<String,dynamic> json){
+    factory UserModel.fromJson(Map<String,dynamic> json , {String? docId}){
       return UserModel(
-        id: json["id"]??"", 
+        id: docId?? json["id"]??"", 
         name: json["name"]??"", 
         email: json["email"]??"",
         image: json["image"]??"");

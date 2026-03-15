@@ -51,6 +51,13 @@ class _ChatScreenState extends State<ChatScreen> {
         }
       );
 
+      if(_scrollController.hasClients){
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent + 100, 
+          duration: Duration(milliseconds: 300), 
+          curve: Curves.easeOut);
+      }
+
   }
 
   @override
@@ -75,80 +82,94 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
       body: Column(
         children: [
-          StreamBuilder<DocumentSnapshot>(
-            stream: FirebaseFirestore.instance
-            .collection("chats")
-            .doc(widget.chatId)
-            .snapshots(),
-          
-            builder: (context, snapshot) {
-          
-              if(snapshot.connectionState==ConnectionState.waiting){
-                return Center(child: CircularProgressIndicator(),);
-              }
-          
-              if(snapshot.hasError){
-                return Center(child: Text(AppStrings.error),);
-              }
-          
-              if(snapshot.hasData || snapshot.data!.exists){
-          
-                final data = snapshot.data!.data() as   Map<String , dynamic>? ?? {};
-                final rawMessages = data["messages"] as List<dynamic>? ?? [];
-                final messages = rawMessages
-                .map((e)=> MessageModel.fromJson(e as Map<String , dynamic>)
-                ).toList();
-              
-          
-              return ListView.builder(
-                      itemCount: messages.length,
-                      shrinkWrap: true,
-                      itemBuilder: (context,index){
-          
-                        final msg = messages[index];
-                        final isMe = msg.senderId == currentUserId;
-          
-              return Align(
-                alignment:isMe
-                ? Alignment.centerRight
-                : Alignment.centerLeft,
-          
-                child: Container(
-                  padding: EdgeInsets.all(10),
-                  margin: EdgeInsets.symmetric(vertical: 5,horizontal: 10),
-                  decoration: BoxDecoration(
-          
-                    color: isMe
-                    ?AppColors.purple
-                    :AppColors.blue,
-          
-                    borderRadius: isMe
-                    ? BorderRadius.only(
-                      topLeft: Radius.circular(15),
-                      topRight: Radius.circular(15),
-                      bottomLeft: Radius.circular(15)
-                    )
-                    :BorderRadius.only(
-                      topLeft: Radius.circular(15),
-                      topRight: Radius.circular(15),
-                      bottomRight: Radius.circular(15)
-                    )               
+          Expanded(
+            child: StreamBuilder<DocumentSnapshot>(
+              stream: FirebaseFirestore.instance
+              .collection("chats")
+              .doc(widget.chatId)
+              .snapshots(),
+            
+              builder: (context, snapshot) {
+            
+                if(snapshot.connectionState==ConnectionState.waiting){
+                  return Center(child: CircularProgressIndicator(),);
+                }
+            
+                if(snapshot.hasError){
+                  return Center(child: Text(AppStrings.error),);
+                }
+            
+                if(snapshot.hasData || snapshot.data!.exists){
+            
+                  final data = snapshot.data!.data() as   Map<String , dynamic>? ?? {};
+                  final rawMessages = data["messages"] as List<dynamic>? ?? [];
+                  final messages = rawMessages
+                  .map((e)=> MessageModel.fromJson(e as Map<String , dynamic>)
+                  ).toList();
+                
+                WidgetsBinding.instance.addPostFrameCallback(
+                  (_){
+                    if(_scrollController.hasClients){
+                      _scrollController.jumpTo(
+                        _scrollController.position.maxScrollExtent,
+            
+                      );
+                    }
+                  }
+            
+                );
+            
+                return ListView.builder(
+                        controller: _scrollController,
+                        itemCount: messages.length,
+                        // shrinkWrap: true,
+                        itemBuilder: (context,index){
+            
+                          final msg = messages[index];
+                          final isMe = msg.senderId == currentUserId;
+            
+                return Align(
+                  alignment:isMe
+                  ? Alignment.centerRight
+                  : Alignment.centerLeft,
+            
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    margin: EdgeInsets.symmetric(vertical: 5,horizontal: 10),
+                    decoration: BoxDecoration(
+            
+                      color: isMe
+                      ?AppColors.purple
+                      :AppColors.blue,
+            
+                      borderRadius: isMe
+                      ? BorderRadius.only(
+                        topLeft: Radius.circular(15),
+                        topRight: Radius.circular(15),
+                        bottomLeft: Radius.circular(15)
+                      )
+                      :BorderRadius.only(
+                        topLeft: Radius.circular(15),
+                        topRight: Radius.circular(15),
+                        bottomRight: Radius.circular(15)
+                      )               
+                    ),
+                    child: Text(msg.text?? 
+                      AppStrings.hi,
+                    style: TextStyle(
+                      color: AppColors.white
+                    ),),
                   ),
-                  child: Text(msg.text?? 
-                    AppStrings.hi,
-                  style: TextStyle(
-                    color: AppColors.white
-                  ),),
-                ),
-              );
-                      });
-              }else{
-                return SizedBox.shrink();
-              }
-            },
+                );
+                        });
+                }else{
+                  return SizedBox.shrink();
+                }
+              },
+            ),
           ),
 
-        Spacer(),
+        // Spacer(),
 
         Row(
           children: [

@@ -33,7 +33,7 @@ class ChatItem extends StatelessWidget {
               ),
               child: ListTile(
                 leading: CircleAvatar(
-                  radius: 30,
+                  radius: 15,
                   backgroundImage: AssetImage("assets/unknown_person.jpg")),
                      title: Text(chatItemModel.name.toString()),
                 subtitle: Text(chatItemModel.message.isNotEmpty
@@ -48,7 +48,7 @@ class ChatItem extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 12
                     ),),
-                    const SizedBox(height: 10,),
+                    const SizedBox(height: 2,),
                 
               
                     // CircleAvatar(

@@ -21,6 +21,7 @@ class AppStrings {
   static String no ="No chats found";
   static String type ="Type a message";
   static String error ="Error";
+ 
 
 
 
